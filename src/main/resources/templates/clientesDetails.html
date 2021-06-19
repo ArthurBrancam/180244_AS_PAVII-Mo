@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes Clientes</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalhes Cliente</h1>
+    <a href="/">Menu</a>
+    <a href="/clientes">Clientes</a>
+    <br>
+    <br>
+    <b>Id Cliente: </b> <span th:text="${cliente.idCliente}"></span>
+    <br><b>Nome: </b> <span th:text="${cliente.nome}"></span>
+    <br><b>Telefone: </b> <span th:text="${cliente.telefone}"></span>
+    <br><b>Endereço: </b> <span th:text="${cliente.endereco}"></span>
+    <br><b>Data de Nascimento: </b> <span th:text="${cliente.getDataNascimentoFormatada()}"></span>
+    <br>
+    <br>
+    <br>
+
+    <b>Agendamentos:</b>
+    <table style="margin-top: 10px;">
+        <tr>
+            <th>Id</th>
+            <th>Horário</th>
+            <th>Profissional</th>
+            <th>Serviço</th>
+        </tr>
+       
+        <tr th:each="agendamento : ${cliente.agendamentos}">
+            <td th:text="${agendamento?.idAgendamento}"></td>
+            <td th:text="${agendamento?.getDataFormatada()}"></td>
+            <td th:text="${agendamento?.profissional?.nome}"></td>
+            <td th:text="${agendamento?.servico?.nome}"></td>
+            <!-- <td> <a th:href="@{'/authorDetails/' + ${author.uid}}" th:text="${author.name}"></a></td> -->
+        </tr>
+    </table>
+    <br>
+    <br>
+    
+</body>
+</html>

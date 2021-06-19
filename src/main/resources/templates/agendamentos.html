@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Agendamentos</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <a href="/"> Menu </a>
+    <br/>
+    <br/>
+    <form th:action="@{/saveagendamento}" method="POST">
+        <label>Data:</label><input type="text" name="data" placeholder="dd/MM/aaaa HH/mm"/>
+        <select th:field="${agendamento.servico}" required>
+            <option th:value="${agendamento?.servico}">Escolha o serviço</option>
+            <option th:each="servico : ${servicos}"
+                        th:value="${servico.idServico}"
+                        th:text="${servico.nome}">
+            </option>
+        </select>
+        <select th:field="${agendamento.profissional}" required>
+            <option th:value="${agendamento?.profissional}">Escolha o profissional</option>
+            <option th:each="profissional : ${profissionais}"
+                        th:value="${profissional.idProfissional}"
+                        th:text="${profissional.nome}">
+            </option>
+        </select>
+        <select th:field="${agendamento.cliente}" required>
+            <option th:value="${agendamento?.cliente}">Escolha o cliente</option>
+            <option th:each="cliente : ${clientes}"
+                        th:value="${cliente.idCliente}"
+                        th:text="${cliente.nome}">
+            </option>
+        </select>
+        <input type="submit" value="Salvar">
+        <p th:text=${agendamento.getServico()}></p>
+        <span style="color: red" th:text="${error}"/>
+    </form>
+    <br/>
+    <br/>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Data</th>
+            <th>Serviço</th>
+            <th>Profissional</th>
+            <th>Cliente</th>
+            <th>Editar</th>
+            <th>Remover</th>
+        </tr>
+        <tr th:each="agendamento : ${agendamentos}">
+            <td th:text="${agendamento?.idAgendamento}"></td>
+            <td th:text="${agendamento?.getDataFormatada()}"></td>
+            <td th:text="${agendamento?.servico?.nome}"></td>
+            <td th:text="${agendamento?.profissional?.nome}"></td>
+            <td th:text="${agendamento?.cliente?.nome}"></td>
+            <td> <a th:href="@{'/editarAgendamento?idAgendamento=' + ${agendamento.idAgendamento}}">Editar</a></td>
+            <td> <a th:href="@{'/removerAgendamento?idAgendamento=' + ${agendamento.idAgendamento}}">Remover</a></td>
+        </tr>
+    </table>
+</body>
+</html>

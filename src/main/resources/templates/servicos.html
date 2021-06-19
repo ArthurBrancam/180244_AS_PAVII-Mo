@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Serviços</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <a href="/"> Menu </a>
+    <br/>
+    <br/>
+    <form th:action="@{/saveservico}" method="POST">
+        <label>Nome:</label><input type="text" name="nome"/>
+        <input type="submit" value="Salvar">
+    </form>
+    <br/>
+    <br/>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Editar</th>
+            <th>Remover</th>
+        </tr>
+        <tr th:each="servico:${servicos}">
+            <td th:text="${servico.idServico}"></td>
+            <td th:text="${servico.nome}"></td>
+            <td> <a th:href="@{'/editarServico?idServico=' + ${servico.idServico}}">Editar</a></td>
+            <td> <a th:href="@{'/deletarServico?idServico=' + ${servico.idServico}}">Remover</a></td>
+        </tr>
+    </table>
+</body>
+</html>

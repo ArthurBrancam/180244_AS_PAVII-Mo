@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Agendamentos</title>
+    
+    <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Editar Agendamento</h1>    
+    <a href="/">Menu</a>
+    <a href="/agendamentos">Agendamentos</a>
+    <br>
+    <br>
+    <form th:action="@{/saveagendamento}" th:object="${agendamento}" method="POST" id="formAgendamento">
+      
+        <label>Id:</label> <span th:text="${agendamento.idAgendamento}"></span>
+        <br>
+        <br>
+        <input type="hidden" th:value="${agendamento.idAgendamento}" th:field="${agendamento.idAgendamento}" name="idAgendamento" />
+        
+        <label>Serviço:</label>
+        <select th:field="${agendamento.servico}" required>
+            <option th:value="${agendamento?.servico}">Escolha o servico</option>
+            <option th:each="servico : ${servicos}"
+                        th:value="${servico.idServico}"
+                        th:text="${servico.nome}">
+            </option>
+        </select>
+        <br>
+        <br>
+        <label>Profissional:</label>
+        <select th:field="${agendamento.profissional}" required>
+            <option th:value="${agendamento?.profissional}">Escolha o profissional</option>
+            <option th:each="profissional : ${profissionais}"
+                        th:value="${profissional.idProfissional}"
+                        th:text="${profissional.nome}">
+            </option>
+        </select>
+        <br>
+        <br>
+        <label>Cliente:</label>
+        <select th:field="${agendamento.cliente}" required>
+            <option th:value="${agendamento?.cliente}">Escolha o cliente</option>
+            <option th:each="cliente : ${clientes}"
+                        th:value="${cliente.idCliente}"
+                        th:text="${cliente.nome}">
+            </option>
+        </select>
+        <br>
+        <br>
+        <label>Data:</label>
+        <input type="text" placeholder="Digite a data" th:value="${agendamento.getDataFormatada()}" name="data" required/>
+        <br>
+        <br>
+        <input type="submit" value="Salvar" />
+        <input type="reset"  value="Cancelar"/>
+    </form>
+
+    
+</body>
+
+</html>

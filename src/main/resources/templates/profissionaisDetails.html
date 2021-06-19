@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes Curso</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalhes Profissional</h1>
+    <a href="/">Menu</a>
+    <a href="/profissionais">Profissionais</a>
+    <br>
+    <br>
+    <b>Id Profissional: </b> <span th:text="${profissional.idProfissional}"></span>
+    <br><b>Nome: </b> <span th:text="${profissional.nome}"></span>
+    <br><b>Telefone: </b> <span th:text="${profissional.telefone}"></span>
+    <br><b>Endereço: </b> <span th:text="${profissional.endereco}"></span>
+    <br><b>Data de Nascimento: </b> <span th:text="${profissional.getDataNascimentoFormatada()}"></span>
+    <br><b>Serviços: </b>
+    <table style="border: 0px !important;">
+    <tr style="border: 0px !important;" th:each="servico : ${profissional.servicos}">
+        <td style="border: 0px !important;"> <a th:href="@{'/servicos/' + ${servico.idServico}}" th:text="${servico.nome}"></a></td>
+        <td style="border: 0px !important;"> <a th:href="@{'/desassociarServico?idServico=' + ${servico.idServico} + '&idProfissional=' + ${profissional.idProfissional}}">X</a></td>
+    </tr>
+    <table>
+    <form th:action="@{/associarServico(idProfissional=${profissional.idProfissional})}" method="POST">
+        <select name="idServico" required>
+            <option value="">Escolha um servico</option>
+            <option th:each="servico : ${servicos}"
+                        th:value="${servico.idServico}"
+                        th:text="${servico.nome}">
+            </option>
+        </select>
+        <input type="submit" value="Associar" />
+    </form>
+    <br>
+    <br>
+    <br>
+
+    <b>Agendamentos:</b>
+    <table style="margin-top: 10px;">
+        <tr>
+            <th>Id</th>
+            <th>Horário</th>
+            <th>Cliente</th>
+            <th>Serviço</th>
+        </tr>
+       
+        <tr th:each="agendamento : ${profissional.agendamentos}">
+            <td th:text="${agendamento?.idAgendamento}"></td>
+            <td th:text="${agendamento?.getDataFormatada()}"></td>
+            <td th:text="${agendamento?.cliente?.nome}"></td>
+            <td th:text="${agendamento?.servico?.nome}"></td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <form th:action="@{/associarAgendamento(idProfissional=${profissional.idProfissional})}" method="POST">
+        <label>Data:</label><input type="text" name="data" placeholder="dd/MM/aaaa HH/mm"/>
+        <select th:field="${agendamento.servico}" required>
+            <option value="">Escolha um servico</option>
+            <option th:each="servico : ${profissional.servicos}"
+                        th:value="${servico.idServico}"
+                        th:text="${servico.nome}">
+            </option>
+        </select>
+        <select th:field="${agendamento.cliente}" required>
+            <option value="">Escolha um cliente</option>
+            <option th:each="cliente : ${clientes}"
+                        th:value="${cliente.idCliente}"
+                        th:text="${cliente.nome}">
+            </option>
+        </select>
+        <input type="submit" value="Associar" />
+    </form>
+    
+</body>
+</html>

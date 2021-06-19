@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes Serviços</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalhes Serviços</h1>
+    <a href="/">Menu</a>
+    <a href="/servicos">Serviços</a>
+    <br>
+    <br>
+    <b>Id Serviço: </b> <span th:text="${servico.idServico}"></span>
+    <br><b>Nome: </b> <span th:text="${servico.nome}"></span>
+    <br>
+    <br>
+    Profissionais:
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+        </tr>
+       
+        <tr th:each="profissional : ${servico.profissionais}">
+            <td th:text="${profissional.idProfissional}"></td>
+            <td> <a th:href="@{'/profissionais/' + ${profissional.idProfissional}}" th:text="${profissional.nome}"></a></td>
+        </tr>
+    </table>
+</body>
+</html>

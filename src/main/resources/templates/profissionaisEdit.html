@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Profissionais</title>
+    
+    <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Editar Profissional</h1>    
+    <a href="/">Menu</a>
+    <a href="/profissionais">Profissionais</a>
+    <br>
+    <br>
+    <form th:action="@{/saveprofissional}" th:object="${profissional}" method="POST" id="formProfissioanal">
+      
+        <label>Id:</label> <span th:text="${profissional.idProfissional}"></span>
+        <br>
+        <br>
+        <input type="hidden" th:value="${profissional.idProfissional}" th:field="${profissional.idProfissional}" name="idProfissional" />
+        <input type="hidden" th:value="${profissional.servicos}" th:field="${profissional.servicos}" name="servicos" />
+        <input type="hidden" th:value="${profissional.agendamentos}" th:field="${profissional.agendamentos}" name="agendamentos" />
+      
+        <label>Nome:</label>
+        <input type="text" placeholder="Digite o nome" th:value="${profissional.nome}" name="nome" required/>
+        <br>
+        <br>
+        <label>Telefone:</label>
+        <input type="text" placeholder="Digite o nome" th:value="${profissional.telefone}" name="telefone" required/>
+        <br>
+        <br>
+        <label>Endereço:</label>
+        <input type="text" placeholder="Digite o nome" th:value="${profissional.endereco}" name="endereco" required/>
+        <br>
+        <br>
+        <label>Data de nascimento:</label>
+        <input type="text" placeholder="Digite o nome" th:value="${profissional.getDataNascimentoFormatada()}" name="dataNascimento" required/>
+        <br>
+        <br>
+        <input type="submit" value="Salvar" />
+        <input type="reset"  value="Cancelar"/>
+    </form>
+
+    
+</body>
+
+</html>
